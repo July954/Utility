@@ -179,5 +179,28 @@
     [parent presentViewController:alertVC animated:YES completion:nil];
 }
 
+//MARK: UIViewController
++ (UIViewController *)getStoryBoardWithController: (NSString *)strSBName strVCName:(NSString *)strVCName {
+    if ([[Utility nilToString:strSBName] isEqualToString: @""]) {
+        return nil;
+    }
+    if ([[Utility nilToString:strVCName] isEqualToString: @""]) {
+        return nil;
+    }
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:strSBName bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier: strVCName];
+    return vc;
+    
+}
+
+//MARK: UIColor
++(UIColor *)hexToUIColor:(int)hexColor{
+    return [UIColor colorWithRed:((float)((hexColor & 0xFF0000) >> 16))/255.0
+                           green:((float)((hexColor & 0xFF00) >> 8))/255.0
+                            blue:((float)(hexColor & 0xFF))/255.0
+                           alpha:1.0];
+}
+
 @end
 

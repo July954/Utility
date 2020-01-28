@@ -184,4 +184,26 @@
            cancle:(nullable NSString*)cancle
           handler:(void (^ __nullable)( UIAlertAction * _Nullable commonAction))handler;
 
+//MARK: UIViewController
+/**
+    스토리보드 이름과 뷰컨트롤러 이름으로 VC반환
+    - Parameters:
+        - NSString *strSBName      : 스토리보드 이름
+        - NSString *strVCName      : 뷰컨트롤러 이름
+    - Returns:
+        - UIViewController *       : 없으면 nil
+*/
++ (nullable UIViewController *)getStoryBoardWithController:(NSString * _Nonnull)strSBName
+                                                 strVCName:(NSString * _Nonnull)strVCName;
+
+//MARK: UIColor
+/**
+    hex 16진수 문자열에서 UIColor 반환
+    - Parameters:
+        - NSString *hexColor      : 16진수 hex String
+    - Returns:
+        - UIColor *
+*/
++(UIColor * _Nonnull)hexToUIColor:(int)hexColor;
+    
 @end
