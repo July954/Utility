@@ -146,7 +146,7 @@
 */
 +(BOOL)isNumberSpecialCharacterInString:(NSString * _Nonnull)string;
 
-//MARK: UIAlert
+//MARK: UIAlertController
 /**
     공통 시스템 알럿
     #사용 예시

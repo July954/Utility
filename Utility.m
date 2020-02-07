@@ -139,7 +139,7 @@
     return YES;
 }
 
-//MARK: UIAlert
+//MARK: UIAlertController
 + (void)initAlert:(UIViewController*)parent
             title:(NSString *)title
           message:(NSString *)message
