@@ -3,9 +3,9 @@
 //
 //
 //
-//  Created by shahn on 2020/01/28.
+//  Created by shan on 2020/01/28.
 //  Copyright © 2020 shahn. All rights reserved.
-//  Last Version: 2020.04.03
+//  Last Version: 2020.04.07
 //
 
 import Foundation
@@ -14,7 +14,7 @@ import CommonCrypto
 
 
 class Utilty: Any {
-    /*
+    /**
      싱글톤으로 사용할것
      */
     
@@ -22,15 +22,20 @@ class Utilty: Any {
     
     private init(){}
     
-    
     //MARK: Log
     /**
-     print() 함수가 DEBUG 플래그일 때만 로그 출력하도록 처리
+    print() 함수가 DEBUG 플래그일 때만 로그 출력하도록 처리
+     # print
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - filename: 파일이름
         - line: 라인번호
         - funcname: 함수 명
         - output: 출력할 내용
+     - Returns:
+        해당 ViewController. 없으면 nil
+     - Note:
      */
     func print(filename: NSString = #file, line: Int = #line, funcname: String = #function, output: Any...) {
         #if DEBUG
@@ -45,14 +50,14 @@ class Utilty: Any {
     
     //MARK: Application
     /**
-    앱 버전 가져오기
+    앱 버전
      */
     var getVersion: String {
         return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
     /**
-    앱 Bundle ID 가져오기
+    앱 Bundle
      */
     var getBundleID: String {
         return Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
@@ -60,10 +65,14 @@ class Utilty: Any {
     
     /**
     앱 스키마로 해당 앱 설치 여부 검사
+     # appInstallYn
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - scheme : 실행 할 앱의 URL Scheme
      - Returns:
-     앱 설치 여부
+        앱 설치 여부.
+     - Note:
      */
     func appInstallYn(scheme:String) -> Bool {
         if UIApplication.shared.canOpenURL(URL.init(string: scheme)!) {
@@ -73,10 +82,15 @@ class Utilty: Any {
     }
     
     /**
-     단말기의 푸시 허용 여부
+    단말기의 푸시 허용 여부
+     # checkPushEnable
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - handler: 실행 핸들러
         - granted: 푸시 허용 여부
+     - Returns:
+     - Note:
      */
     func checkPushEnable(handler: @escaping (_ granted: Bool) -> Void) {
         if #available(iOS 10.0, *) {
@@ -102,12 +116,16 @@ class Utilty: Any {
     
     //MARK: Collection
     /**
-     Collection Merge (콜렉션 타입 합성)
+    Collection Merge (콜렉션 타입 합성)
+     # merge
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - left: Any
         - right: Any
      - Returns:
-     Merged Collection
+        Merged Collection
+     - Note:
      */
     public func merge <KeyType, ValueType> ( _ left: [KeyType: ValueType], _ right: [KeyType: ValueType]) -> [KeyType: ValueType] {
         var out = left
@@ -121,12 +139,16 @@ class Utilty: Any {
     
     //MARK: UIViewController
     /**
-     Storyboard에서 특정 ViewController를 반환
+    Storyboard에서 특정 ViewController를 반환
+     # getStoryboardWithController
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - strSBName: Storyboard 이름
         - strControllerName: ViewController 이름
      - Returns:
-     해당 ViewController. 없으면 nil
+        해당 ViewController. 없으면 nil
+     - Note:
      */
     func getStoryboardWithController(strSBName: String, strControllerName: String) -> UIViewController? {
         let str: String? = strSBName
@@ -202,11 +224,15 @@ extension String {
     }
     
     /**
-     숫자에 콤마 추가하기
+    숫자에 콤마 추가하기
+     # addCommaToNumber
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
-     - number: 콤마 추가할 숫자
+        - number: 콤마 추가할 숫자
      - Returns:
-     콤마 추가된 문자열
+        콤마 추가된 문자열
+     - Note:
      */
     func addCommaToNumber(number: Int) -> String {
         let formatter = NumberFormatter()
@@ -220,53 +246,91 @@ extension String {
     }
     
     /**
-     숫자로 된 문자열 판단
+    숫자로 된 문자열 판단
+     # isNumber
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - string: 판단할 문자열
      - Returns:
-     숫자로만 이루어졌는지 여부
+        숫자로만 이루어졌는지 여부
+     - Note:
      */
     func isNumber(string: String) -> Bool {
         return !string.isEmpty && !(string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) != nil)
     }
     
+    /**
+    Brace 정상 유무 판단
+     # isBraces
+     - Author: shan
+     - Date: 20.02.05
+     - Parameters:
+        - string: 판단할 문자열
+     - Returns:
+        Brace 정상 판단
+     - Note:
+     */
+    func isBraces(values: String) -> Bool {
+        switch values.filter("()[]{}".contains)
+            .replacingOccurrences(of: "()", with: "")
+            .replacingOccurrences(of: "[]", with: "")
+            .replacingOccurrences(of: "{}", with: "") {
+        case "":
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 //MARK: UIColor
 extension UIColor {
     /**
-     RGB 값으로 UIColor 생성하여 반환
+    RGB 값으로 UIColor 생성하여 반환
+     # rgbToUIColor
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - red: red 수치
         - green: green 수치
         - blue: blue 수치
      - Returns:
-     변환된 UIColor 객체
+        변환된 UIColor 객체
+     - Note:
      */
     func rgbToUIColor(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return self.rgbaToUIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
     /**
-     RGB 값으로 UIColor 생성하여 반환
+    RGB 값으로 UIColor 생성하여 반환
+     # rgbaToUIColor
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
-         - red: red 수치
-         - green: green 수치
-         - blue: blue 수치
-         - alpha: alpha 수치
+        - red: red 수치
+        - green: green 수치
+        - blue: blue 수치
+        - alpha: alpha 수치
      - Returns:
-     변환된 UIColor 객체
+        변환된 UIColor 객체
+     - Note:
      */
     func rgbaToUIColor(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
         return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: alpha)
     }
     
     /**
-     색상 HEX 값으로 UIColor 생성하여 반환
+    색상 HEX 값으로 UIColor 생성하여 반환
+     # hexToUIColor
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - hex: hex 코드
      - Returns:
-     변환된 UIColor 객체
+        변환된 UIColor 객체
+     - Note:
      */
     func hexToUIColor(hex: String) -> UIColor {
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -291,12 +355,16 @@ extension UIColor {
     }
     
     /**
-     DarkMode 컬러를 가진 UIColor 생성
+    DarkMode 컬러를 가진 UIColor 생성
+     # darkmodeColor
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - color: 일반 모드 컬러
         - darkmode: 다크 모드 컬러
      - Returns:
-     일반 모드 컬러, 다크모드 컬러를 가진 UIColor 객체
+        일반 모드 컬러, 다크모드 컬러를 가진 UIColor 객체
+     - Note:
      */
     static func darkmodeColor(_ color: UIColor, darkmode: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
@@ -312,12 +380,16 @@ extension UIColor {
 //MARK: UIImage
 extension UIImage {
     /**
-     DarkMode 이미지를 가진 UIImage 생성
+    DarkMode 이미지를 가진 UIImage 생성
+     # darkmodeColor
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - image: 일반 모드 이미지
         - darkmode: 다크 모드 이미지
      - Returns:
-     일반 모드 이미지, 다크모드 이미지를 가진 UIImage 객체
+        일반 모드 이미지, 다크모드 이미지를 가진 UIImage 객체
+     - Note:
      */
     static func darkableImage(_ image: UIImage, darkmode: UIImage) -> UIImage {
         if #available(iOS 13.0, *) {
@@ -409,6 +481,286 @@ extension UIDevice {
     }
 }
 
+//MARK: UIDevice
+
+//MARK: UIDevice
+@IBDesignable
+extension UIView
+{
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: layer.borderColor!)
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
+    }
+    
+    @IBInspectable
+    var shadowColor: UIColor? {
+        set {
+            layer.shadowColor = newValue!.cgColor
+        }
+        get {
+            if let color = layer.shadowColor {
+                return UIColor(cgColor: color)
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    @IBInspectable
+    var shadowOpacity: Float {
+        set {
+            layer.shadowOpacity = newValue
+        }
+        get {
+            return layer.shadowOpacity
+        }
+    }
+    
+    @IBInspectable
+    var masksToBounds: Bool {
+        set {
+            layer.masksToBounds = newValue
+        }
+        get {
+            return layer.masksToBounds
+        }
+    }
+    
+    @IBInspectable
+    var shadowRadius: CGFloat {
+        set {
+            layer.shadowRadius = newValue
+        }
+        get {
+            return layer.shadowRadius
+        }
+    }
+    
+    @IBInspectable
+    var shadowOffset: CGSize {
+        set {
+            layer.shadowOffset = newValue
+        }
+        get {
+            return layer.shadowOffset
+        }
+    }
+    
+    /**
+    코드로 Constraint 삽입
+     # addConstrainsWithFormat
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - format: Constraint format
+        - views: Constraint 삽입 될 뷰
+     - Returns:
+     - Note:
+     */
+    func addConstrainsWithFormat(format: String, views: UIView...) {
+        var viewsDictionary = [String: UIView]()
+        for (index, view) in views.enumerated() {
+            let key = "v\(index)"
+            viewsDictionary[key] = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+    
+    /**
+    SubView 전체 삭제
+     # removeAllSubviews
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+     - Returns:
+     - Note:
+     */
+    func removeAllSubviews() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+    }
+    
+    /**
+    Constraint 전체 삭제
+     # removeAllConstraints
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+     - Returns:
+     - Note:
+     */
+    func removeAllConstraints() {
+        self.removeConstraints(self.constraints)
+        for view in self.subviews {
+            view.removeAllConstraints()
+        }
+    }
+    
+    /**
+    ParentVC 가져오기
+     # parentViewController
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+     - Returns:
+        ParentVC 없으면 nil
+     - Note:
+     */
+    func parentViewController() -> UIViewController? {
+        var parentResponder: UIResponder? = self
+        while true {
+            guard let nextResponder = parentResponder?.next else { return nil }
+            if let vc = nextResponder as? UIViewController {
+                return vc
+            }
+            parentResponder = nextResponder
+        }
+    }
+    
+    /**
+    Dashed Border 추가하기
+     # addDashedBorder
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - lineLength: Dash Length
+        - lineSpace: Dash Space
+        - lineWidth: Dash Width
+     - Returns:
+     - Note:
+     */
+    func addDashedBorder(lineLength s: NSNumber, lineSpace e: NSNumber, lineWidth: CGFloat) {
+        let shapeLayer:CAShapeLayer = CAShapeLayer()
+        let frameSize = self.frame.size
+        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
+        
+        shapeLayer.bounds = shapeRect
+        shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = UIColor(red: 232/255, green: 232/255, blue: 232/255, alpha: 1).cgColor
+        shapeLayer.lineWidth = lineWidth
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.lineDashPattern = [s,e]
+        shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 0).cgPath
+        
+        self.layer.addSublayer(shapeLayer)
+    }
+    
+    /**
+    Border 추가하기
+     # addBorderTop
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - size: 두께
+        - color: 색상
+     - Returns:
+     - Note:
+     */
+    func addBorderTop(size: CGFloat, color: UIColor) {
+        addBorderUtility(x: 0, y: 0, width: frame.width, height: size, color: color)
+    }
+    
+    /**
+    Border 추가하기
+     # addBorderBottom
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - size: 두께
+        - color: 색상
+     - Returns:
+     - Note:
+     */
+    func addBorderBottom(size: CGFloat, color: UIColor) {
+        addBorderUtility(x: 0, y: frame.height - size, width: frame.width, height: size, color: color)
+    }
+    
+    /**
+    Border 추가하기
+     # addBorderLeft
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - size: 두께
+        - color: 색상
+     - Returns:
+     - Note:
+     */
+    func addBorderLeft(size: CGFloat, color: UIColor) {
+        addBorderUtility(x: 0, y: 0, width: size, height: frame.height, color: color)
+    }
+    
+    /**
+    Border 추가하기
+     # addBorderRight
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - size: 두께
+        - color: 색상
+     - Returns:
+     - Note:
+     */
+    func addBorderRight(size: CGFloat, color: UIColor) {
+        addBorderUtility(x: frame.width - size, y: 0, width: size, height: frame.height, color: color)
+    }
+    
+    private func addBorderUtility(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: x, y: y, width: width, height: height)
+        layer.addSublayer(border)
+    }
+    
+    /**
+    Fade 애니메이션 추가
+     # fadeTransition
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+        - duration: 애니메이션 시간
+     - Returns:
+     - Note:
+     */
+    func fadeTransition(_ duration:CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = duration
+        layer.add(animation, forKey: CATransitionType.fade.rawValue)
+    }
+    
+}
+
 //MARK: Date
 extension Date {
     
@@ -416,6 +768,16 @@ extension Date {
         self = Date(timeIntervalSince1970: TimeInterval(Double.init(seconds)))
     }
     
+    /**
+    Date 객체 Second로 변환
+     # toSeconds
+     - Author: shan
+     - Date: 20.04.07
+     - Parameters:
+     - Returns:
+        Int Second
+     - Note:
+     */
     func toSeconds() -> Int64! {
         return Int64((self.timeIntervalSince1970).rounded())
     }
@@ -432,13 +794,18 @@ class CommonAlert {
     }
     
     /**
-     시스템 알럿 1버튼 타입
+    시스템 알럿 1버튼 타입
+     # showAlertType1
+     - Author: shan
+     - Date: 20.02.05
      - Parameters:
         - vc: 알럿이 표출될 vc
         - title: 알럿의 제목
         - message: 알럿의 내용
         - completeTitle: 확인 버튼의 타이틀
         - completeHandler: 확인 버튼 완료 핸들러
+     - Returns:
+     - Note:
      */
     static func showAlertType1(vc:UIViewController? = viewController, title:String = "", message:String = "", completeTitle:String = "확인", _ completeHandler:(() -> Void)? = nil){
         if let viewController = vc {
@@ -453,15 +820,20 @@ class CommonAlert {
     
     /**
     시스템 알럿 2버튼 타입
-    - Parameters:
-       - vc: 알럿이 표출될 vc
-       - title: 알럿의 제목
-       - message: 알럿의 내용
-       - cancelTitle: 취소 버튼의 타이틀
-       - completeTitle: 확인 버튼의 타이틀
-       - cancelHandler: 취소 버튼 완료 핸들러
-       - completeHandler: 확인 버튼 완료 핸들러
-    */
+     # showAlertType2
+     - Author: shan
+     - Date: 20.02.05
+     - Parameters:
+        - vc: 알럿이 표출될 vc
+        - title: 알럿의 제목
+        - message: 알럿의 내용
+        - cancelTitle: 취소 버튼의 타이틀
+        - completeTitle: 확인 버튼의 타이틀
+        - cancelHandler: 취소 버튼 완료 핸들러
+        - completeHandler: 확인 버튼 완료 핸들러
+     - Returns:
+     - Note:
+     */
     static func showAlertType2(vc:UIViewController? = viewController, title:String = "", message:String = "", cancelTitle:String = "취소", completeTitle:String = "확인",  _ cancelHandler:(() -> Void)? = nil, _ completeHandler:(() -> Void)? = nil){
         if let viewController = vc {
             let alert = UIAlertController(title: title, message: message, preferredStyle:UIAlertController.Style.alert)
