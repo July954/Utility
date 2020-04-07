@@ -21,7 +21,7 @@
 
 
 # Updated
-## Last Updated : 2020.04.03
+## Last Updated : 2020.04.07
 
 ## Objcetive-C
  - Log
@@ -44,6 +44,7 @@
  - UIColor
  - UIImage
  - UIDevice
+ - UIView
  - Date
  
  ### Extra Class

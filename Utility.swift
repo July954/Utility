@@ -482,8 +482,6 @@ extension UIDevice {
 }
 
 //MARK: UIDevice
-
-//MARK: UIDevice
 @IBDesignable
 extension UIView
 {
