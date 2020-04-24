@@ -2,7 +2,7 @@
 
 ## Devlopment Utility For Objective-C & Swift
 
-### Copyright (c) 2019, ansh0324@gmail.com All rights reserved.
+### Copyright (c) 2019, devHuni@gmail.com All rights reserved.
 
 
 
