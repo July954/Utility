@@ -2,7 +2,7 @@
 //  Utility.swift
 //
 //
-//  Created by devHuni on 2020/01/28.
+//  Created by dvHuni on 2020/01/28.
 //  Copyright © 2020 shAhn. All rights reserved.
 //  Last Version: 2020.04.17
 //
@@ -25,7 +25,7 @@ class Utilty: Any {
     /**
     print() 함수가 DEBUG 플래그일 때만 로그 출력하도록 처리
      # print
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - filename: 파일이름
@@ -65,7 +65,7 @@ class Utilty: Any {
     /**
     앱 스키마로 해당 앱 설치 여부 검사
      # appInstallYn
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - scheme : 실행 할 앱의 URL Scheme
@@ -83,7 +83,7 @@ class Utilty: Any {
     /**
     단말기의 푸시 허용 여부
      # checkPushEnable
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - handler: 실행 핸들러
@@ -117,7 +117,7 @@ class Utilty: Any {
     /**
     Collection Merge (콜렉션 타입 합성)
      # merge
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - left: Any
@@ -140,7 +140,7 @@ class Utilty: Any {
     /**
     Storyboard에서 특정 ViewController를 반환
      # storyboardWithController
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - strSBName: Storyboard 이름
@@ -278,7 +278,7 @@ extension String {
     /**
     숫자에 콤마 추가하기
      # addCommaToNumber
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - number: 콤마 추가할 숫자
@@ -300,7 +300,7 @@ extension String {
     /**
     숫자로 된 문자열 판단
      # isNumber
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - string: 판단할 문자열
@@ -315,7 +315,7 @@ extension String {
     /**
     Brace 정상 유무 판단
      # isBraces
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - string: 판단할 문자열
@@ -338,7 +338,7 @@ extension String {
     /**
     특수문자 제거
      # removeSpecialChars
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.08
      - Parameters:
      - Returns:
@@ -352,9 +352,30 @@ extension String {
     }
     
     /**
+     # hasRightCharacter
+     - Author: dvHuni
+     - Date: 20.04.28
+     - Parameters:
+     - Returns: true: 숫자, 특문 없음 : false: 숫자, 특문 존재
+     - Note: 정규식으로 숫자, 특문 입력 방지
+    */
+    func hasRightCharacter(exp: String?) -> Bool {
+        do{
+            let regex = try NSRegularExpression(pattern: exp ?? #"^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ\s]+$"#, options: .caseInsensitive)
+            let result = regex.numberOfMatches(in: self, options: .reportCompletion, range: .init(location: 0, length: self.count))
+            if result > 0 {
+                return true
+            }
+        } catch {
+            return false
+        }
+        return false
+    }
+    
+    /**
     특정 문자 치환
      # replace
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.17
      - Parameters:
         - target: Replace Target
@@ -373,7 +394,7 @@ extension UIColor {
     /**
     RGB 값으로 UIColor 생성하여 반환
      # rgbToUIColor
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - red: red 수치
@@ -390,7 +411,7 @@ extension UIColor {
     /**
     RGB 값으로 UIColor 생성하여 반환
      # rgbaToUIColor
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - red: red 수치
@@ -408,7 +429,7 @@ extension UIColor {
     /**
     색상 HEX 값으로 UIColor 생성하여 반환
      # hexToUIColor
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - hex: hex 코드
@@ -441,7 +462,7 @@ extension UIColor {
     /**
     DarkMode 컬러를 가진 UIColor 생성
      # darkmodeColor
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - color: 일반 모드 컬러
@@ -466,7 +487,7 @@ extension UIImage {
     /**
     DarkMode 이미지를 가진 UIImage 생성
      # darkmodeColor
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - image: 일반 모드 이미지
@@ -655,7 +676,7 @@ extension UIView
     /**
     코드로 Constraint 삽입
      # addConstrainsWithFormat
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - format: Constraint format
@@ -677,7 +698,7 @@ extension UIView
     /**
     SubView 전체 삭제
      # removeAllSubviews
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
      - Returns:
@@ -692,7 +713,7 @@ extension UIView
     /**
     Constraint 전체 삭제
      # removeAllConstraints
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
      - Returns:
@@ -708,7 +729,7 @@ extension UIView
     /**
     ParentVC 가져오기
      # parentViewController
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
      - Returns:
@@ -729,7 +750,7 @@ extension UIView
     /**
     Dashed Border 추가하기
      # addDashedBorder
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - lineLength: Dash Length
@@ -758,7 +779,7 @@ extension UIView
     /**
     Border 추가하기
      # addBorderTop
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - size: 두께
@@ -773,7 +794,7 @@ extension UIView
     /**
     Border 추가하기
      # addBorderBottom
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - size: 두께
@@ -788,7 +809,7 @@ extension UIView
     /**
     Border 추가하기
      # addBorderLeft
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - size: 두께
@@ -803,7 +824,7 @@ extension UIView
     /**
     Border 추가하기
      # addBorderRight
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - size: 두께
@@ -825,7 +846,7 @@ extension UIView
     /**
     Fade 애니메이션 추가
      # fadeTransition
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
         - duration: 애니메이션 시간
@@ -853,7 +874,7 @@ extension Date {
     /**
     Date 객체 Second로 변환
      # toSeconds
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.04.07
      - Parameters:
      - Returns:
@@ -878,7 +899,7 @@ class CommonAlert {
     /**
     시스템 알럿 1버튼 타입
      # showAlertType1
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - vc: 알럿이 표출될 vc
@@ -903,7 +924,7 @@ class CommonAlert {
     /**
     시스템 알럿 2버튼 타입
      # showAlertType2
-     - Author: devHuni
+     - Author: dvHuni
      - Date: 20.02.05
      - Parameters:
         - vc: 알럿이 표출될 vc

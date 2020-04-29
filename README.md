@@ -2,7 +2,7 @@
 
 ## Devlopment Utility For Objective-C & Swift
 
-### Copyright (c) 2019, devHuni@gmail.com All rights reserved.
+### Copyright (c) 2019, dvHuni All rights reserved.
 
 
 
@@ -21,7 +21,7 @@
 
 
 # Updated
-## Last Updated : 2020.04.17
+## Last Updated : 2020.04.28
 
 ## Objcetive-C
  - Log
